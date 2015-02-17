@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="your_name">Your name</string>
+    <string name="your_email">Your email</string>
+    <string name="telephone">Your telephone number</string>
+    <string name="band_name">band name</string>
+    <string name="date">Choose your date</string>
+</resources>
