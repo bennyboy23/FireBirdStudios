@@ -64,29 +64,40 @@ public class MainActivity extends ActionBarActivity
                 TestingToast();
                 break;
             case 2:
+                FragmentPricing fragmentpricing = new FragmentPricing();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                               .replace(R.id.container, fragmentpricing)
+                               .commit();
+                break;
+            case 3:
                 FragmentAboutUs fragmentaboutus = new FragmentAboutUs();
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                                .replace(R.id.container, fragmentaboutus)
                                .commit();
                 break;
-            case 3:
+            case 4:
                 FragmentContactUs fragmentcontactus = new FragmentContactUs();
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                                .replace(R.id.container, fragmentcontactus)
                                .commit();
                 break;
+
         }
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 1:
+            case 0:
                 mTitle = getString(R.string.home);
                 break;
-            case 2:
+            case 1:
                 mTitle = getString(R.string.book_a_room);
+                break;
+            case 2:
+                mTitle = getString(R.string.pricing);
                 break;
             case 3:
                 mTitle = getString(R.string.about_us);

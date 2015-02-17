@@ -15,6 +15,6 @@
     <string name="pick_a_date">Pick a Date</string>
     <string name="pick_a_time">Pick a time</string>
     <string name="phoneNumber">tel:01179721830</string>
-
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pricing">Pricing</string>
 </resources>
