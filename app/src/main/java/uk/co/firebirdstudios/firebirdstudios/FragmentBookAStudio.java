@@ -3,9 +3,7 @@ package uk.co.firebirdstudios.firebirdstudios;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -20,9 +18,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-
-import java.util.Calendar;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -33,6 +30,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 /**
  * Created by Benjy on 23/12/14.
  */
@@ -40,9 +38,10 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
     private static final String username = "firebirdstudios7@gmail.com";
     private static final String password = "hellowor";
 
-    public FragmentBookAStudio(){
+    public FragmentBookAStudio() {
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,21 +51,24 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         time.setOnClickListener(this);
         Button date = (Button) v.findViewById(R.id.date);
         date.setOnClickListener(this);
-        Button confirm = (Button)v.findViewById(R.id.Confirm);
+        Button confirm = (Button) v.findViewById(R.id.Confirm);
         confirm.setOnClickListener(this);
         return v;
     }
-    public void showTimePickerDialog(){
+
+    public void showTimePickerDialog() {
         DialogFragment dialogFragment = new TimePickerFragment();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
     }
+
     public void showDatePickerDialog() {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
+
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.time:
                 showTimePickerDialog();
                 break;
@@ -88,6 +90,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         }
 
     }
+
     private void sendMail(String email, String subject, String messageBody) {
         Session session = createSessionObject();
 
@@ -102,7 +105,8 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
             e.printStackTrace();
         }
     }
-    private Session createSessionObject(){
+
+    private Session createSessionObject() {
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
@@ -115,6 +119,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
             }
         });
     }
+
     private Message createMessage(String email, String subject, String messageBody, Session session) throws MessagingException, UnsupportedEncodingException {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(email));
@@ -123,6 +128,60 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         message.setText(messageBody);
         return message;
     }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            Button time = (Button) getActivity().findViewById(R.id.time);
+            String displayTime = String.format("%02d:%02d", hourOfDay, minute);
+            time.setText(displayTime);
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        private Bundle userDate = new Bundle();
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+            datePicker.getDatePicker().setMinDate(year);
+            return datePicker;
+
+
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+
+
+            Button date = (Button) getActivity().findViewById(R.id.date);
+            String displayDate = day + "/" + (month + 1) + "/" + year;
+            date.setText(displayDate);
+
+        }
+    }
+
     private class SendMailTask extends AsyncTask<Message, Void, Void> {
 
 
@@ -146,58 +205,6 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
                 e.printStackTrace();
             }
             return null;
-        }
-    }
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-            Button time = (Button) getActivity().findViewById(R.id.time);
-            String displayTime = String.format("%02d:%02d", hourOfDay, minute);
-            time.setText(displayTime);
-        }
-    }
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        private Bundle userDate = new Bundle();
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-                // Use the current date as the default date in the picker
-                final Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
-                datePicker.getDatePicker().setMinDate(year);
-                return datePicker;
-
-
-
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-
-
-            Button date = (Button)getActivity().findViewById(R.id.date);
-            String displayDate = day + "/" + (month + 1) + "/" + year;
-            date.setText(displayDate);
-
         }
     }
 

@@ -6,8 +6,8 @@
     <string name="about_us">About us</string>
     <string name="book_a_room">Book a Room</string>
     <string name="contact_us">Contact us</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="Confirm_Button">Confirm</string>
@@ -17,4 +17,9 @@
     <string name="phoneNumber">tel:01179721830</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pricing">Pricing</string>
+    <string-array name="AboutUsTabs">
+        <item>Owners</item>
+        <item>Studio</item>
+        <item>Gallery</item>
+    </string-array>
 </resources>
