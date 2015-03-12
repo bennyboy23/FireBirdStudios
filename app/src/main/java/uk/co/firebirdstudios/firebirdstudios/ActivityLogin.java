@@ -63,6 +63,7 @@ public class ActivityLogin extends ActionBarActivity implements GoogleApiClient.
         Toast.makeText(this, "user is connected!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
