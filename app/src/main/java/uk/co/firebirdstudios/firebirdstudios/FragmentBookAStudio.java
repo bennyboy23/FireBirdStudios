@@ -4,6 +4,7 @@ package uk.co.firebirdstudios.firebirdstudios;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -15,29 +16,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+import com.google.api.services.gmail.Gmail;
+import com.google.api.services.gmail.model.Message;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Properties;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/**
- * Created by Benjy on 23/12/14.
- */
-public class FragmentBookAStudio extends Fragment implements View.OnClickListener {
-    private static final String username = "firebirdstudios7@gmail.com";
-    private static final String password = "hellowor";
 
+public class FragmentBookAStudio extends Fragment implements View.OnClickListener {
+    private MimeMessage booking;
+    private Gmail gmail;
+    public static final String PREFS_NAME ="myPrefsFile";
     public FragmentBookAStudio() {
 
     }
@@ -46,14 +47,20 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_book_a_studio, container, false);
-
+        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
         Button time = (Button) v.findViewById(R.id.time);
+        TextView name = (TextView)v.findViewById(R.id.name);
+               name.setText(settings.getString("Name", ""));
+        TextView emailAddress = (TextView)v.findViewById(R.id.email);
+        emailAddress.setText(settings.getString("Email",""));
         time.setOnClickListener(this);
         Button date = (Button) v.findViewById(R.id.date);
         date.setOnClickListener(this);
         Button confirm = (Button) v.findViewById(R.id.Confirm);
         confirm.setOnClickListener(this);
+        //Toast.makeText(getActivity().getApplicationContext(),settings.getString("personId",""),Toast.LENGTH_LONG).show();
         return v;
+
     }
 
     public void showTimePickerDialog() {
@@ -68,6 +75,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.time:
                 showTimePickerDialog();
@@ -77,55 +85,66 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
                 break;
             case R.id.Confirm:
 
-                EditText emailEdit = (EditText) getActivity().findViewById(R.id.email);
-                EditText nameEdit = (EditText) getActivity().findViewById(R.id.name);
-                EditText bandNameEdit = (EditText) getActivity().findViewById(R.id.band_name);
-                EditText telephoneEdit = (EditText) getActivity().findViewById(R.id.telephone);
-
-                String email = emailEdit.getText().toString();
-                String message = nameEdit.getText().toString() + "\n" + telephoneEdit.getText().toString() + "\n" + bandNameEdit.getText().toString();
-                Toast.makeText(getActivity().getApplicationContext(), message + "\n" + email, Toast.LENGTH_SHORT).show();
-                sendMail(email, "booking", message);
+                SendMail mSendMail = new SendMail();
+                mSendMail.execute();
                 break;
         }
 
     }
 
-    private void sendMail(String email, String subject, String messageBody) {
-        Session session = createSessionObject();
+    private class SendMail extends AsyncTask<Void, Void, Void> {
+        EditText emailEdit = (EditText) getActivity().findViewById(R.id.email);
+        EditText nameEdit = (EditText) getActivity().findViewById(R.id.name);
+        EditText bandNameEdit = (EditText) getActivity().findViewById(R.id.band_name);
+        EditText telephoneEdit = (EditText) getActivity().findViewById(R.id.telephone);
 
-        try {
-            Message message = createMessage(email, subject, messageBody, session);
-            new SendMailTask().execute(message);
-        } catch (AddressException e) {
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        String email = emailEdit.getText().toString();
+        String message = nameEdit.getText().toString() + "\n" + telephoneEdit.getText().toString() + "\n" + bandNameEdit.getText().toString();
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                booking = createEmail("admin@firebirdstudios.co.uk", email, "booking", message);
+                sendMessage(gmail, "me", booking);
+                Toast.makeText(getActivity().getApplicationContext(), message + "\n" + email, Toast.LENGTH_SHORT).show();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
-    private Session createSessionObject() {
-        Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "487");
 
-        return Session.getInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
+    public static void sendMessage(Gmail service, String userId, MimeMessage email) throws IOException, MessagingException {
+        Message message = createMessageWithEmail(email);
+        message = service.users().messages().send(userId, message).execute();
+
     }
 
-    private Message createMessage(String email, String subject, String messageBody, Session session) throws MessagingException, UnsupportedEncodingException {
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(email));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress("admin@firebirdstudios.co.uk", "Firebird Studios"));
-        message.setSubject(subject);
-        message.setText(messageBody);
+    public static MimeMessage createEmail(String to, String from, String subject, String bodyText) throws MessagingException {
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        MimeMessage email = new MimeMessage(session);
+        InternetAddress internetAddressTo = new InternetAddress(to);
+        InternetAddress internetAddressFrom = new InternetAddress(from);
+
+        email.setFrom(internetAddressFrom);
+        email.addRecipient(MimeMessage.RecipientType.TO, internetAddressTo);
+        email.setSubject(subject);
+        email.setText(bodyText);
+        return email;
+    }
+
+    public static com.google.api.services.gmail.model.Message createMessageWithEmail(MimeMessage email)
+            throws MessagingException, IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        email.writeTo(bytes);
+        String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
+        com.google.api.services.gmail.model.Message message = new Message();
+        message.setRaw(encodedEmail);
         return message;
     }
 
@@ -179,32 +198,6 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
             String displayDate = day + "/" + (month + 1) + "/" + year;
             date.setText(displayDate);
 
-        }
-    }
-
-    private class SendMailTask extends AsyncTask<Message, Void, Void> {
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-        }
-
-        @Override
-        protected Void doInBackground(Message... messages) {
-            try {
-                Transport.send(messages[0]);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-            return null;
         }
     }
 

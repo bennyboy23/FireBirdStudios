@@ -74,6 +74,7 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 Intent intent = new Intent(this, ActivityAboutUs.class);
                 this.startActivity(intent);
+                finish();
                 break;
             case 4:
                 FragmentContactUs fragmentcontactus = new FragmentContactUs();
@@ -119,6 +120,7 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, ActivitySettings.class);
             startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -129,9 +131,7 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
 
 
 }

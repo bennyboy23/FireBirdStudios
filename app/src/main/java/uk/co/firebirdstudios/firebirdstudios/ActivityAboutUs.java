@@ -81,7 +81,7 @@ public class ActivityAboutUs extends ActionBarActivity {
 
     public static class MyFragment extends Fragment {
 
-        private ImageView imageView;
+        private ImageView charlieImageView;
 
         public static MyFragment getInstance(int position) {
 
@@ -98,7 +98,7 @@ public class ActivityAboutUs extends ActionBarActivity {
             private int data = 0;
 
             public BitmapWorkerTask(ImageView imageview) {
-                imageViewReference = new WeakReference<ImageView>(imageView);
+                imageViewReference = new WeakReference<>(imageview);
             }
 
             @Override
@@ -156,8 +156,8 @@ public class ActivityAboutUs extends ActionBarActivity {
 
             if (bundle.getInt("position") == 0) {
                 layout = inflater.inflate(R.layout.fragment_owners, container, false);
-                imageView = (ImageView) layout.findViewById(R.id.Charlie);
-                loadBitmap(R.drawable.charlie, imageView);
+                charlieImageView = (ImageView) layout.findViewById(R.id.Charlie);
+                loadBitmap(R.drawable.charlie, charlieImageView);
                 return layout;
             } else if (bundle.getInt("position") == 1) {
                 layout = inflater.inflate(R.layout.fragment_studio, container, false);

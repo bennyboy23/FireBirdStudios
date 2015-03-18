@@ -2,17 +2,21 @@ package uk.co.firebirdstudios.firebirdstudios;
 
 import android.content.Intent;
 import android.content.IntentSender;
-import android.support.v7.app.ActionBarActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 
 public class ActivityLogin extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -22,6 +26,8 @@ public class ActivityLogin extends ActionBarActivity implements GoogleApiClient.
     private boolean mIntentInProgress;
     private boolean mSignInClicked;
     private ConnectionResult mConnectionResult;
+    public static final String PREFS_NAME ="myPrefsFile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,7 @@ public class ActivityLogin extends ActionBarActivity implements GoogleApiClient.
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .addScope(Plus.SCOPE_PLUS_PROFILE)
                 .build();
         setContentView(R.layout.activity_activity_login);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -60,13 +67,39 @@ public class ActivityLogin extends ActionBarActivity implements GoogleApiClient.
     }
     public void onConnected(Bundle connectionHint){
         mSignInClicked = false;
-        Toast.makeText(this, "user is connected!", Toast.LENGTH_SHORT).show();
+        getProfileInformation();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
+
     }
 
+    private void getProfileInformation() {
+        try {
+            if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+                Person currentPerson = Plus.PeopleApi
+                        .getCurrentPerson(mGoogleApiClient);
+                String personName = currentPerson.getDisplayName();
+                String personPhotoUrl = currentPerson.getImage().getUrl();
+                String personId= currentPerson.getId();
+                Log.d("id",personId);
+                String personEmail = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("Name",personName);
+                editor.putString("Email",personEmail);
+                editor.putString("Id",personId);
+                editor.apply();
+
+
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "Person information is null", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     protected void onActivityResult(int requestCode, int responseCode, Intent intent)
     {
@@ -121,8 +154,15 @@ public class ActivityLogin extends ActionBarActivity implements GoogleApiClient.
     @Override
     public void onClick(View v) {
         if((v.getId() == R.id.sign_in_button) && !mGoogleApiClient.isConnecting()){
-            mSignInClicked = true;
-            resolveSignInError();
+
+            int playServices = GooglePlayServicesUtil.GOOGLE_PLAY_SERVICES_VERSION_CODE;
+            if (playServices != getResources().getInteger(R.integer.google_play_services_version)) {
+                GooglePlayServicesUtil.getErrorDialog(playServices,this,0);
+            }else {
+                mSignInClicked = true;
+                resolveSignInError();
+                finish();
+            }
 
         }if(v.getId()==R.id.skip_login){
             Intent i = new Intent(this, MainActivity.class);
