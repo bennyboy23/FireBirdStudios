@@ -123,18 +123,21 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Message email = createEmail("admin@firebirdstudios.co.uk", to, "Booking", message);
+                Message email = createEmail("cricketgenius.evans@gmail.com", to, "Booking", message);
                 //Toast.makeText(getActivity().getApplicationContext(), message + "\n" + email, Toast.LENGTH_SHORT).show();
                 sendMessage("me", email);
 
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (MessagingException | IOException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
     }
 
 
@@ -149,10 +152,8 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         String json = "{\"raw\":\"" + raw + "\"}";
 
         Log.d("Email", raw);
+        POST(url,json);
 
-        Log.d("url", url);
-        String response = POST(url, json);
-        Log.d("Twat", response);
 
     }
 
@@ -170,7 +171,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         try {
             // create HttpClient
             HttpClient httpclient = new DefaultHttpClient();
-            // make GET request to the given URL
+            // make POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
@@ -188,7 +189,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
     }
 
     // The same helper function that convert the response buffer into string
-    private String convertInputStreamToString(InputStream inputStream) throws IOException {
+    protected String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         String result = "";

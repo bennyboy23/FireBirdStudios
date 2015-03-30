@@ -47,6 +47,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
 
     private void doCoolAuthenticatedStuff() {
         // TODO: insert cool stuff with authPreferences.getToken()
+
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
@@ -80,7 +81,8 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
      * token for whatever reason. call requestToken() again afterwards in order
      * to get a new token.
      */
-    private void invalidateToken() {
+    protected void invalidateToken() {
+
         AccountManager accountManager = AccountManager.get(this);
         accountManager.invalidateAuthToken("com.google",
                 authPreferences.getToken());

@@ -29,4 +29,6 @@
     <string name="sign_out">Sign out</string>
     <string name="skip_login">Skip Login</string>
     <string name="Charlie">Hello my name is Charlie, </string>
+    <string name="Naomi">hello my name is Naomi</string>
+    <string name="Disconnect_from_app">Disconnect from app</string>
 </resources>

@@ -74,7 +74,7 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 Intent intent = new Intent(this, ActivityAboutUs.class);
                 this.startActivity(intent);
-                finish();
+
                 break;
             case 4:
                 FragmentContactUs fragmentcontactus = new FragmentContactUs();

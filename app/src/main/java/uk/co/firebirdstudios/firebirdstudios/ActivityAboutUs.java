@@ -82,7 +82,7 @@ public class ActivityAboutUs extends ActionBarActivity {
     public static class MyFragment extends Fragment {
 
         private ImageView charlieImageView;
-
+        private ImageView naomiImageView;
         public static MyFragment getInstance(int position) {
 
             MyFragment myFragment = new MyFragment();
@@ -118,15 +118,15 @@ public class ActivityAboutUs extends ActionBarActivity {
             }
         }
 
-        public static int calculateInSampleSize(BitmapFactory.Options options, int reqwidth, int reqheight) {
+        public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
             final int height = options.outHeight;
             final int width = options.outWidth;
             int inSampleSize = 1;
-            if (height > reqheight || width > reqwidth) {
+            if (height > reqHeight || width > reqWidth) {
                 final int halfHeight = height / 2;
                 final int halfWidth = width / 2;
 
-                while ((halfHeight / inSampleSize) > reqheight && (halfWidth / inSampleSize) > reqwidth) {
+                while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
                     inSampleSize *= 2;
                 }
             }
@@ -156,6 +156,8 @@ public class ActivityAboutUs extends ActionBarActivity {
 
             if (bundle.getInt("position") == 0) {
                 layout = inflater.inflate(R.layout.fragment_owners, container, false);
+                naomiImageView = (ImageView)layout.findViewById(R.id.Naomi);
+                loadBitmap(R.drawable.naomi,naomiImageView);
                 charlieImageView = (ImageView) layout.findViewById(R.id.Charlie);
                 loadBitmap(R.drawable.charlie, charlieImageView);
                 return layout;
