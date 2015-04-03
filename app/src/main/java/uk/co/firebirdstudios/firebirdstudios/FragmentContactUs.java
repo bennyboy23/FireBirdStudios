@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class FragmentContactUs extends Fragment implements View.OnClickListener 
         View v = inflater.inflate(R.layout.fragment_contact_us, container, false);
         TextView textView = (TextView) v.findViewById(R.id.phoneNumber);
         textView.setOnClickListener(this);
+        Button maps = (Button)v.findViewById(R.id.maps);
+        maps.setOnClickListener(this);
         return v;
 
 
@@ -31,7 +34,13 @@ public class FragmentContactUs extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
+        if (v.getId() == R.id.phoneNumber) {
+            callStudio();
+        }if (v.getId() == R.id.maps){
+            showMaps();
+        }
+    }
+    public void callStudio(){
         Uri phoneNumber = Uri.parse(getResources().getString(R.string.phoneNumber));
         PackageManager packageManager = getActivity().getPackageManager();
 
@@ -44,6 +53,16 @@ public class FragmentContactUs extends Fragment implements View.OnClickListener 
             Toast.makeText(getActivity().getApplicationContext(), "please get a phone app", Toast.LENGTH_SHORT).show();
 
         }
+
+    }
+    public void showMaps() {
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+
+        Toast.makeText(getActivity().getApplicationContext(),"hello",Toast.LENGTH_SHORT).show();
+        i.setData(Uri.parse("geo:51.432356,-2.540121?q=firebird+studios"));
+        Intent chooser = Intent.createChooser(i,"Launch Maps");
+        startActivity(chooser);
     }
 }
 

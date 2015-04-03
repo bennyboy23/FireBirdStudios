@@ -56,15 +56,15 @@ public class ActivitySettings extends ActionBarActivity implements View.OnClickL
                 break;
 
             case R.id.revokeToken:
-
-
+                DisconnectFromApp disconnectFromApp = new DisconnectFromApp();
+                disconnectFromApp.execute();
                 authPreferences.clearUser();
                 startActivity(i);
                 finish();
                 break;
         }
     }
-    private class DisconnectFromApp extends AsyncTask<Void, Void, Void> {
+    private  class DisconnectFromApp extends AsyncTask<Void, Void, Void> {
         String token = authPreferences.getToken();
 
         String url = "https://accounts.google.com/o/oauth2/revoke";

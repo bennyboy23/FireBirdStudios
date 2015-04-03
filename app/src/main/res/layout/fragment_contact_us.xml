@@ -13,4 +13,9 @@
 
         android:padding="10dp"
         android:text="@string/phoneNumber" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maps_button"
+        android:id="@+id/maps"/>
 </LinearLayout>
