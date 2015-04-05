@@ -44,4 +44,5 @@ public class AuthPreferences {
         editor.remove(KEY_TOKEN);
         editor.commit();
     }
+
 }

@@ -7,7 +7,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -23,17 +26,20 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 
-public class ActivitySettings extends ActionBarActivity implements View.OnClickListener {
+public class ActivitySettings extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private AuthPreferences authPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         authPreferences = new AuthPreferences(this);
-
         setContentView(R.layout.activity_settings);
+        Spinner spinner = (Spinner)findViewById(R.id.locale);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Locales, android.R.layout.simple_list_item_1);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -41,7 +47,7 @@ public class ActivitySettings extends ActionBarActivity implements View.OnClickL
         revokeToken.setOnClickListener(this);
         Button signOut = (Button) findViewById(R.id.sign_out_button);
         signOut.setOnClickListener(this);
-
+        spinner.setOnItemClickListener(this);
     }
 
     @Override
@@ -64,6 +70,14 @@ public class ActivitySettings extends ActionBarActivity implements View.OnClickL
                 break;
         }
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 1){
+
+        }
+    }
+
     private  class DisconnectFromApp extends AsyncTask<Void, Void, Void> {
         String token = authPreferences.getToken();
 
