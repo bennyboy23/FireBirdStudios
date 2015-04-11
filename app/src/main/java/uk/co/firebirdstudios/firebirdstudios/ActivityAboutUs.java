@@ -40,6 +40,7 @@ public class ActivityAboutUs extends ActionBarActivity {
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
 
 
@@ -65,7 +66,7 @@ public class ActivityAboutUs extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return MyFragment.getInstance(position);
+            return AboutUsFragments.getInstance(position);
         }
 
         @Override
@@ -79,18 +80,18 @@ public class ActivityAboutUs extends ActionBarActivity {
         }
     }
 
-    public static class MyFragment extends Fragment {
+    public static class AboutUsFragments extends Fragment {
 
         private ImageView charlieImageView;
         private ImageView naomiImageView;
-        public static MyFragment getInstance(int position) {
+        public static AboutUsFragments getInstance(int position) {
 
-            MyFragment myFragment = new MyFragment();
+            AboutUsFragments aboutUsFragments = new AboutUsFragments();
 
             Bundle args = new Bundle();
             args.putInt("position", position);
-            myFragment.setArguments(args);
-            return myFragment;
+            aboutUsFragments.setArguments(args);
+            return aboutUsFragments;
         }
 
         class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {

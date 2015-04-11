@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,7 +27,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 
-public class ActivitySettings extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ActivitySettings extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private AuthPreferences authPreferences;
 
@@ -47,7 +48,7 @@ public class ActivitySettings extends ActionBarActivity implements View.OnClickL
         revokeToken.setOnClickListener(this);
         Button signOut = (Button) findViewById(R.id.sign_out_button);
         signOut.setOnClickListener(this);
-        spinner.setOnItemClickListener(this);
+        spinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -71,11 +72,22 @@ public class ActivitySettings extends ActionBarActivity implements View.OnClickL
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 1){
 
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(position == 1){
+            authPreferences.setLocale("zh");
+            Toast.makeText(getApplicationContext(),authPreferences.getLocale(),Toast.LENGTH_SHORT).show();
+        }else{
+            authPreferences.setLocale("en");
+            Toast.makeText(getApplicationContext(),authPreferences.getLocale(),Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     private  class DisconnectFromApp extends AsyncTask<Void, Void, Void> {

@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/Charlie"
     android:padding="10dp"
-    android:contentDescription=""/>
+    android:contentDescription="@string/charlie"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:id="@+id/Naomi"/>
+        android:id="@+id/Naomi"
+        android:contentDescription="@string/naomi" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

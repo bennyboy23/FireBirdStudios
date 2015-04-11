@@ -16,6 +16,12 @@
     <string name="phoneNumber">tel:01179721830</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pricing">定价</string>
+    <string name="room_hire_rate">Room Hire Rates</string>
+    <string name="weekday">Weekday</string>
+    <string name="weekend">Weekend</string>
+    <string name="evening_room_hire">Evening Room Hire</string>
+    <string name="sunday_evening_hire">Sunday Evening Hire</string>
+
     <string-array name="AboutUsTabs">
         <item>业主</item>
         <item>工作室</item>

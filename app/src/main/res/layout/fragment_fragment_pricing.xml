@@ -1,7 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-</LinearLayout>
+    <TableRow android:background="@drawable/tableborder">
+
+        <TextView
+
+            android:layout_weight="2"
+            android:padding="5dp"
+            android:text="@string/weekday"
+            android:textStyle="bold" />
+
+        <TextView
+
+
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="@string/weekend"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow android:background="@drawable/tableborder">
+
+        <TextView
+            android:layout_weight="2"
+
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/evening_room_hire" />
+
+
+        <TextView
+            android:layout_weight="1"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/evening_room_hire" />
+
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_weight="2"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/weekday_daytime_rate" />
+
+        <TextView
+            android:layout_weight="1"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/daytime_room_hire" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_weight="2"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/eight_hr_booking" />
+
+        <TextView
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/eight_hour_booking_sunday" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_weight="2"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/lockout_weekday" />
+
+        <TextView
+            android:layout_weight="1"
+            android:background="@drawable/tableborder"
+            android:padding="5dp"
+            android:text="@string/lockout_sunday" />
+    </TableRow>
+</TableLayout>

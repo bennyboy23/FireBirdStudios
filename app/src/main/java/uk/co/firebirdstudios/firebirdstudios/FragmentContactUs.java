@@ -19,6 +19,7 @@ import java.util.List;
  * Created by Benjy on 23/12/14.
  */
 public class FragmentContactUs extends Fragment implements View.OnClickListener {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

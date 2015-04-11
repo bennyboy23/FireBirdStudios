@@ -1,8 +1,6 @@
 package uk.co.firebirdstudios.firebirdstudios;
 
-/**
- * Created by Benjy on 19/03/2015.
- */
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +10,7 @@ public class AuthPreferences {
 
     private static final String KEY_USER = "user";
     private static final String KEY_TOKEN = "token";
-
+    private static final String KEY_LOCALE = "locale";
     private SharedPreferences preferences;
 
     public AuthPreferences(Context context) {
@@ -44,5 +42,12 @@ public class AuthPreferences {
         editor.remove(KEY_TOKEN);
         editor.commit();
     }
-
+    public void setLocale(String locale){
+         Editor editor = preferences.edit();
+        editor.putString(KEY_LOCALE,locale);
+        editor.commit();
+    }
+    public String getLocale(){
+        return preferences.getString(KEY_LOCALE,"en");
+    }
 }

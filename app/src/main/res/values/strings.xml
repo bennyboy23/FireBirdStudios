@@ -32,8 +32,31 @@
     <string name="Naomi">hello my name is Naomi</string>
     <string name="Disconnect_from_app">Disconnect from app</string>
     <string name="maps_button">Find us on google maps</string>
+    <string name="room_hire_rate">Room Hire Rates</string>
+    <string name="weekday">Weekday</string>
+    <string name="weekend">Weekend</string>
+    <string name="evening_room_hire">Room Hire(7pm–11pm):£31/£25</string>
+    <string name="sunday_evening_hire">Sunday Evening Hire:£31/£25</string>
+
+    <string name="charlie">Charlie Evans</string>
+    <string name="naomi">Naomi Evans</string>
+    <string name="daytime_room_hire">Daytime Room Hire(per hour) £7</string>
+    <string name="weekday_daytime_rate">Daytime Room Hire (per hour) £5/£4.50</string>
+    <string name="eight_hr_booking">8 hr booking (10am – 6pm)\t£40</string>
+    <string name="lockout_weekday">Lockout (10am – 11pm)\t£60</string>
+    <string name="eight_hour_booking_sunday">8 hr Booking\t£50</string>
+    <string name="lockout_sunday">Lockout\t£68</string>
+    <string name="bass_amp">Bass Amp</string>
+    <string name="bass_amp_price">£3</string>
+    <string name="standard_guitar_amp">Guitar Amp Standard (Peavey Classic 30/Marshall AVT50)</string>
+    <string name="premium_guitar_amp">Guitar Amp Premium (Marshall JCM2000/Blackstar HT Stage 100)</string>
+    <string name="premium_amp_price">£5</string>
     <string-array name="Locales">
         <item>English</item>
         <item>中文(简体)</item>
     </string-array>
+    <string-array name="pricingTabs">
+        <item>Room Hire</item>
+        <item>Equipment Hire</item>
+      </string-array>
 </resources>
