@@ -8,6 +8,7 @@
     <string name="navigation_drawer_open">开放</string>
     <string name="navigation_drawer_close">近</string>
     <string name="action_example">Example action</string>
+    <string name="maps_button">找到我们在谷歌地图</string>
     <string name="action_settings">设置</string>
     <string name="Confirm_Button">确认</string>
     <string name="Cancel_Button">取消</string>
@@ -16,12 +17,21 @@
     <string name="phoneNumber">tel:01179721830</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pricing">定价</string>
-    <string name="room_hire_rate">Room Hire Rates</string>
-    <string name="weekday">Weekday</string>
-    <string name="weekend">Weekend</string>
-    <string name="evening_room_hire">Evening Room Hire</string>
-    <string name="sunday_evening_hire">Sunday Evening Hire</string>
-
+    <string name="room_hire_rate">租用房间价格</string>
+    <string name="weekday">平日</string>
+    <string name="weekend">周末</string>
+    <string name="standard_guitar_amp">标准的吉他音箱</string>
+    <string name="premium_guitar_amp">溢价吉他音箱</string>
+    <string name="evening_room_hire">晚上租用房间</string>
+    <string name="sunday_evening_hire">周日晚上租用</string>
+    <string name="saturday">星期六</string>
+    <string name="sunday">星期天</string>
+    <string name="bass_amp">低音功放</string>
+    <string name="snare">小鼓</string>
+    <string name="cymbals">钹</string>
+    <string name="drum_kit">鼓包</string>
+    <string name="facebook_link">Find us on Facebook</string>
+    <string name="twitter_link">Find us on Twitter</string>
     <string-array name="AboutUsTabs">
         <item>业主</item>
         <item>工作室</item>

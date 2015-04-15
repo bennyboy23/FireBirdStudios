@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -34,18 +35,25 @@ public class ImageDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.fragment_equipment_image, null);
         ImageView equipmentImage = (ImageView) v.findViewById(R.id.equipment_image);
+        TextView equipmentTitle = (TextView)v.findViewById(R.id.equipment_title);
         if (resID == R.id.bass_amp) {
             loadBitmap(R.drawable.bx3000t, equipmentImage);
+            equipmentTitle.setText(R.string.bass_amp);
         } else if (resID == R.id.guitar_amp_standard) {
             loadBitmap(R.drawable.standard_amp, equipmentImage);
+            equipmentTitle.setText(R.string.standard_guitar_amp);
         } else if (resID == R.id.guitar_amp_premium) {
             loadBitmap(R.drawable.premium_amp, equipmentImage);
-        }else if (resID == R.id.cymbals){
+            equipmentTitle.setText(R.string.premium_guitar_amp);
+        } else if (resID == R.id.cymbals) {
             loadBitmap(R.drawable.cymbals, equipmentImage);
-        }else if (resID == R.id.snare){
+            equipmentTitle.setText(R.string.cymbals);
+        } else if (resID == R.id.snare) {
             loadBitmap(R.drawable.snare, equipmentImage);
-        }else if (resID == R.id.drum_kit){
+            equipmentTitle.setText(R.string.snare);
+        } else if (resID == R.id.drum_kit) {
             loadBitmap(R.drawable.drum_kit, equipmentImage);
+            equipmentTitle.setText(R.string.drum_kit);
         }
 
         builder.setView(v);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="your_name">你的名字</string>
+    <string name="your_email">您的电子邮件</string>
+    <string name="telephone">你的电话号码</string>
+    <string name="band_name">乐队的名字</string>
+    <string name="date">选择一个日期</string>
+</resources>

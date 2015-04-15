@@ -75,7 +75,7 @@
             android:layout_width="40dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="Drum Kit (Shells, stands and pedal)" />
+            android:text="@string/drum_kit" />
 
         <TextView
             android:layout_weight="1"
@@ -89,7 +89,7 @@
             android:id="@+id/cymbals"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="Cymbals" />
+            android:text="@string/cymbals" />
 
         <TextView
             android:layout_weight="1"
@@ -103,7 +103,7 @@
             android:id="@+id/snare"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="Snare" />
+            android:text="@string/snare" />
 
         <TextView
             android:layout_weight="1"

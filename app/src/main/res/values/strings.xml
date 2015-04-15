@@ -51,6 +51,14 @@
     <string name="standard_guitar_amp">Guitar Amp Standard (Peavey Classic 30/Marshall AVT50)</string>
     <string name="premium_guitar_amp">Guitar Amp Premium (Marshall JCM2000/Blackstar HT Stage 100)</string>
     <string name="premium_amp_price">£5</string>
+    <string name="weekdays">Monday-Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="snare">Snare</string>
+    <string name="cymbals">Cymbals</string>
+    <string name="drum_kit">Drum Kit (Shells, stands and pedal)</string>
+    <string name="facebook_link">Find us on Facebook</string>
+    <string name="twitter_link">Find us on Twitter</string>
     <string-array name="Locales">
         <item>English</item>
         <item>中文(简体)</item>

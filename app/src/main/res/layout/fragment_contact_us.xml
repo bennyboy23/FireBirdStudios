@@ -18,4 +18,14 @@
         android:layout_height="wrap_content"
         android:text="@string/maps_button"
         android:id="@+id/maps"/>
+    <Button
+        android:id="@+id/facebook_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/facebook_link"/>
+    <Button
+        android:id="@+id/twitter_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/twitter_link"/>
 </LinearLayout>
