@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 public class ActivityLogin extends ActionBarActivity implements View.OnClickListener {
 
@@ -18,7 +22,8 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
 
     private AuthPreferences authPreferences;
     private AccountManager accountManager;
-
+    private ConnectionChecker connectionChecker;
+    boolean connection =false;
     private Toolbar toolbar;
 
     private final String SCOPE = "https://mail.google.com/ https://www.googleapis.com/auth/userinfo.profile";
@@ -28,7 +33,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         accountManager = AccountManager.get(this);
-
+        connectionChecker = new ConnectionChecker(this);
         authPreferences = new AuthPreferences(this);
         //If logged in
         if (authPreferences.getUser() != null
@@ -41,10 +46,17 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
             getSupportActionBar().setTitle(R.string.app_name);
             findViewById(R.id.sign_in_button).setOnClickListener(this);
             findViewById(R.id.skip_login).setOnClickListener(this);
+            loadLogo();
         }
 
     }
+    public void loadLogo(){
+        ImageView logo = (ImageView)findViewById(R.id.logo);
+        Picasso.with(this)
+                .load(R.drawable.firebird_logo_large)
 
+                .into(logo);
+    }
     private void doCoolAuthenticatedStuff() {
         // TODO: insert cool stuff with authPreferences.getToken()
 
@@ -59,6 +71,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
         Intent intent = AccountManager.newChooseAccountIntent(null, null,
                 new String[] { "com.google" }, false, null, null, null, null);
         startActivityForResult(intent, ACCOUNT_CODE);
+
     }
 
     private void requestToken() {
@@ -88,7 +101,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
                 authPreferences.getToken());
 
         authPreferences.setToken(null);
-    }
+        }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -118,7 +131,13 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
             startActivity(i);
             finish();
         } else {
-            chooseAccount();
+            connection = connectionChecker.isConnected();
+            if (connection) {
+
+                chooseAccount();
+            }else{
+                Toast.makeText(this, R.string.not_connected,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

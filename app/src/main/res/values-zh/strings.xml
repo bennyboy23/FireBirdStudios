@@ -32,6 +32,12 @@
     <string name="drum_kit">鼓包</string>
     <string name="facebook_link">Find us on Facebook</string>
     <string name="twitter_link">Find us on Twitter</string>
+    <string name="opening_hours">Opening Hours</string>
+    <string name="equipment_for_hire">Equipment for hire</string>
+    <string name="enter_number">please enter a valid number</string>
+    <string name="enter_email">please enter a valid email address</string>
+    <string name="enter_name">Please enter your name</string>
+    <string name="logo_description">Firebird Studios Logo</string>
     <string-array name="AboutUsTabs">
         <item>业主</item>
         <item>工作室</item>

@@ -7,12 +7,14 @@
 
     <EditText
         android:id="@+id/name"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/your_name" />
 
     <EditText
         android:id="@+id/email"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
@@ -20,6 +22,7 @@
         android:inputType="textEmailAddress" />
 
     <EditText
+        android:padding="10dp"
         android:id="@+id/telephone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,18 +31,26 @@
         android:inputType="phone" />
 
     <EditText
+        android:padding="10dp"
         android:id="@+id/band_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/telephone"
         android:hint="@string/band_name" />
-
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/equipment_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/equipment_for_hire"
+        android:layout_below="@+id/time"/>
     <Button
         android:id="@+id/Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="84dp"
         android:text="@string/Confirm_Button"
 

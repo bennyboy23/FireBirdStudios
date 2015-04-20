@@ -4,9 +4,11 @@ package uk.co.firebirdstudios.firebirdstudios;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
@@ -19,9 +21,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
-import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 
 import org.apache.http.HttpResponse;
@@ -47,11 +49,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class FragmentBookAStudio extends Fragment implements View.OnClickListener {
-    private MimeMessage email;
-    private Gmail gmail;
+
 
     AuthPreferences authPreferences = null;
-
+    ConnectionChecker connectionChecker;
 
 
     public static final String PREFS_NAME = "myPrefsFile";
@@ -63,15 +64,15 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        authPreferences = new AuthPreferences(getActivity());
-
+        authPreferences = new AuthPreferences(getActivity().getApplicationContext());
+        connectionChecker = new ConnectionChecker(getActivity().getApplicationContext());
         View v = inflater.inflate(R.layout.fragment_book_a_studio, container, false);
         SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
         Button time = (Button) v.findViewById(R.id.time);
         TextView name = (TextView) v.findViewById(R.id.name);
         name.setText(settings.getString("Name", ""));
         TextView emailAddress = (TextView) v.findViewById(R.id.email);
-        emailAddress.setText(settings.getString("Email", ""));
+        emailAddress.setText(authPreferences.getUser());
         time.setOnClickListener(this);
         Button date = (Button) v.findViewById(R.id.date);
         date.setOnClickListener(this);
@@ -103,9 +104,24 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
                 showDatePickerDialog();
                 break;
             case R.id.Confirm:
-
+                Context context = getActivity().getApplicationContext();
                 SendMail mSendMail = new SendMail();
-                mSendMail.execute();
+                int inputCheck = mSendMail.inputCheck();
+                boolean connection = connectionChecker.isConnected();
+                if (connection) {
+                    if (inputCheck == 1) {
+                        Toast.makeText(context, R.string.enter_name, Toast.LENGTH_SHORT).show();
+
+                    } else if (inputCheck == 2) {
+                        Toast.makeText(context, R.string.enter_email, Toast.LENGTH_SHORT).show();
+                    } else if (inputCheck == 3) {
+                        Toast.makeText(context, R.string.enter_number, Toast.LENGTH_SHORT).show();
+                    } else if (inputCheck == 4) {
+                        mSendMail.execute();
+                    }
+                } else {
+                    Toast.makeText(context, R.string.not_connected, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
 
@@ -117,15 +133,20 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         EditText bandNameEdit = (EditText) getActivity().findViewById(R.id.band_name);
         EditText telephoneEdit = (EditText) getActivity().findViewById(R.id.telephone);
 
-        String to = emailEdit.getText().toString();
-        String message = nameEdit.getText().toString() + "\n" + telephoneEdit.getText().toString() + "\n" + bandNameEdit.getText().toString();
+        String name = nameEdit.getText().toString();
+        String bandName = bandNameEdit.getText().toString();
+        String from = emailEdit.getText().toString();
+        String phoneNumber = telephoneEdit.getText().toString();
+
+        String message = name + "\n" + phoneNumber + "\n" + bandName;
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Message email = createEmail("cricketgenius.evans@gmail.com", to, "Booking", message);
+
+                Message email = createEmail("cricketgenius.evans@gmail.com", from, "Booking", message);
                 //Toast.makeText(getActivity().getApplicationContext(), message + "\n" + email, Toast.LENGTH_SHORT).show();
-                sendMessage("me", email);
+                sendMessage(email);
 
             } catch (MessagingException | IOException e) {
                 e.printStackTrace();
@@ -138,21 +159,34 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
             super.onPostExecute(aVoid);
 
         }
+
+        public int inputCheck() {
+            if (name.equals("")) {
+                return 1;
+            } else if (!from.contains("@")) {
+                return 2;
+            } else if (!(phoneNumber.length() == 11)) {
+                return 3;
+            } else {
+                return 4;
+            }
+        }
+
     }
 
 
-    public void sendMessage(String userId, Message email) throws IOException, MessagingException {
+    public void sendMessage(Message email) throws IOException, MessagingException {
         String url = "https://content.googleapis.com/gmail/v1/users/me/messages/send";
 
         url += "?access_token=" + URLEncoder.encode(authPreferences.getToken());
 
         String raw = email.toString();
-        raw = raw.substring(5, raw.length()-1);
+        raw = raw.substring(5, raw.length() - 1);
 
         String json = "{\"raw\":\"" + raw + "\"}";
 
         Log.d("Email", raw);
-        POST(url,json);
+        POST(url, json);
 
 
     }
@@ -254,6 +288,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
 
         private Bundle userDate = new Bundle();
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 

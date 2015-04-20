@@ -59,6 +59,8 @@
     <string name="drum_kit">Drum Kit (Shells, stands and pedal)</string>
     <string name="facebook_link">Find us on Facebook</string>
     <string name="twitter_link">Find us on Twitter</string>
+    <string name="opening_hours">Opening Hours</string>
+    <string name="equipment_for_hire">Equipment for hire</string>
     <string-array name="Locales">
         <item>English</item>
         <item>中文(简体)</item>
@@ -67,4 +69,9 @@
         <item>Room Hire</item>
         <item>Equipment Hire</item>
       </string-array>
+    <string name="not_connected">Please check your internet connection</string>
+    <string name="enter_number">please enter a valid number</string>
+    <string name="enter_email">please enter a valid email address</string>
+    <string name="enter_name">Please enter your name</string>
+    <string name="logo_description">Firebird Studios Logo</string>
 </resources>
