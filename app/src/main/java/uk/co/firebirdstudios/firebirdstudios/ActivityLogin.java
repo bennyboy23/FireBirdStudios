@@ -66,8 +66,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
     }
 
     private void chooseAccount() {
-        // use https://github.com/frakbot/Android-AccountChooser for
-        // compatibility with older devices
+
         Intent intent = AccountManager.newChooseAccountIntent(null, null,
                 new String[] { "com.google" }, false, null, null, null, null);
         startActivityForResult(intent, ACCOUNT_CODE);
