@@ -84,6 +84,7 @@ public class ActivityAboutUs extends ActionBarActivity {
 
         private ImageView charlieImageView;
         private ImageView naomiImageView;
+
         public static AboutUsFragments getInstance(int position) {
 
             AboutUsFragments aboutUsFragments = new AboutUsFragments();
@@ -157,8 +158,8 @@ public class ActivityAboutUs extends ActionBarActivity {
 
             if (bundle.getInt("position") == 0) {
                 layout = inflater.inflate(R.layout.fragment_owners, container, false);
-                naomiImageView = (ImageView)layout.findViewById(R.id.Naomi);
-                loadBitmap(R.drawable.naomi,naomiImageView);
+                naomiImageView = (ImageView) layout.findViewById(R.id.Naomi);
+                loadBitmap(R.drawable.naomi, naomiImageView);
                 charlieImageView = (ImageView) layout.findViewById(R.id.Charlie);
                 loadBitmap(R.drawable.charlie, charlieImageView);
                 return layout;

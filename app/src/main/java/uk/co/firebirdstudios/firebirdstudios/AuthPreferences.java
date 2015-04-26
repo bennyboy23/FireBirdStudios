@@ -1,7 +1,6 @@
 package uk.co.firebirdstudios.firebirdstudios;
 
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -42,12 +41,23 @@ public class AuthPreferences {
         editor.remove(KEY_TOKEN);
         editor.commit();
     }
-    public void setLocale(String locale){
-         Editor editor = preferences.edit();
-        editor.putString(KEY_LOCALE,locale);
+
+    public void setLocale(String locale) {
+        Editor editor = preferences.edit();
+        editor.putString(KEY_LOCALE, locale);
         editor.commit();
     }
-    public String getLocale(){
-        return preferences.getString(KEY_LOCALE,"en");
+
+    public String getLocale() {
+        return preferences.getString(KEY_LOCALE, "en");
     }
+
+    public void setEquipment(String equipment) {
+
+        Editor editor = preferences.edit();
+        editor.putString("equipment", equipment);
+        editor.commit();
+
+    }
+    public String getEquipment(){return preferences.getString("equipment","");}
 }

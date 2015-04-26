@@ -13,16 +13,17 @@
             android:layout_weight="1"
 
             android:padding="5dp"
-            android:text="Equipment" />
+            android:text="@string/equipment" />
 
         <TextView
             android:textStyle="bold"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="Price" />
+            android:text="@string/price" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:background="@drawable/tableborder">
 
         <TextView
             android:id="@+id/bass_amp"
@@ -32,14 +33,17 @@
             android:text="@string/bass_amp" />
 
         <TextView
+
             android:layout_weight="1"
             android:padding="5dp"
             android:text="@string/bass_amp_price" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:background="@drawable/tableborder">
 
         <TextView
+            android:background="@drawable/tableborder"
             android:id="@+id/guitar_amp_standard"
             android:layout_width="40dp"
             android:layout_gravity="center"
@@ -53,9 +57,11 @@
             android:text="@string/bass_amp_price" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:background="@drawable/tableborder">
 
         <TextView
+            android:background="@drawable/tableborder"
             android:id="@+id/guitar_amp_premium"
             android:layout_width="40dp"
             android:layout_weight="1"
@@ -63,14 +69,17 @@
             android:text="@string/premium_guitar_amp" />
 
         <TextView
+
             android:layout_weight="1"
             android:padding="5dp"
             android:text="@string/premium_amp_price" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:background="@drawable/tableborder">
 
         <TextView
+            android:background="@drawable/tableborder"
             android:id="@+id/drum_kit"
             android:layout_width="40dp"
             android:layout_weight="1"
@@ -83,9 +92,11 @@
             android:text="@string/premium_amp_price" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:background="@drawable/tableborder">
 
         <TextView
+            android:background="@drawable/tableborder"
             android:id="@+id/cymbals"
             android:layout_weight="1"
             android:padding="5dp"
@@ -97,9 +108,11 @@
             android:text="£2" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:background="@drawable/tableborder">
 
         <TextView
+            android:background="@drawable/tableborder"
             android:id="@+id/snare"
             android:layout_weight="1"
             android:padding="5dp"

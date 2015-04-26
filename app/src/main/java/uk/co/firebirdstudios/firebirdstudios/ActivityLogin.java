@@ -23,7 +23,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
     private AuthPreferences authPreferences;
     private AccountManager accountManager;
     private ConnectionChecker connectionChecker;
-    boolean connection =false;
+    boolean connection = false;
     private Toolbar toolbar;
 
     private final String SCOPE = "https://mail.google.com/ https://www.googleapis.com/auth/userinfo.profile";
@@ -50,15 +50,15 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
         }
 
     }
-    public void loadLogo(){
-        ImageView logo = (ImageView)findViewById(R.id.logo);
+
+    public void loadLogo() {
+        ImageView logo = (ImageView) findViewById(R.id.logo);
         Picasso.with(this)
                 .load(R.drawable.firebird_logo_large)
-
                 .into(logo);
     }
+
     private void doCoolAuthenticatedStuff() {
-        // TODO: insert cool stuff with authPreferences.getToken()
 
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
@@ -68,7 +68,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
     private void chooseAccount() {
 
         Intent intent = AccountManager.newChooseAccountIntent(null, null,
-                new String[] { "com.google" }, false, null, null, null, null);
+                new String[]{"com.google"}, false, null, null, null, null);
         startActivityForResult(intent, ACCOUNT_CODE);
 
     }
@@ -100,7 +100,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
                 authPreferences.getToken());
 
         authPreferences.setToken(null);
-        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -125,7 +125,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.skip_login){
+        if (v.getId() == R.id.skip_login) {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
@@ -134,8 +134,8 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
             if (connection) {
 
                 chooseAccount();
-            }else{
-                Toast.makeText(this, R.string.not_connected,Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
             }
         }
     }

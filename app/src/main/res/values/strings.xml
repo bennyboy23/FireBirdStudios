@@ -65,6 +65,14 @@
         <item>English</item>
         <item>中文(简体)</item>
     </string-array>
+    <string-array name="equipment_hire">
+        <item>Bass Amp</item>
+        <item>Standard Guitar Amp</item>
+        <item>Premium Guitar Amp</item>
+        <item>Drum Kit</item>
+        <item>Cymbals</item>
+        <item>Snare</item>
+    </string-array>
     <string-array name="pricingTabs">
         <item>Room Hire</item>
         <item>Equipment Hire</item>
@@ -74,4 +82,7 @@
     <string name="enter_email">please enter a valid email address</string>
     <string name="enter_name">Please enter your name</string>
     <string name="logo_description">Firebird Studios Logo</string>
+    <string name="equipment">Equipment</string>
+    <string name="price">Price</string>
+    <string name="end_time">Pick an end time</string>
 </resources>

@@ -38,9 +38,20 @@
     <string name="enter_email">please enter a valid email address</string>
     <string name="enter_name">Please enter your name</string>
     <string name="logo_description">Firebird Studios Logo</string>
+    <string name="equipment">Equipment</string>
+    <string name="price">Price</string>
+    <string name="end_time">Pick an end time</string>
     <string-array name="AboutUsTabs">
         <item>业主</item>
         <item>工作室</item>
         <item>画廊</item>
+    </string-array>
+    <string-array name="equipment_hire">
+    <item>低音功放</item>
+    <item>标准的吉他音箱</item>
+    <item>溢价吉他音箱</item>
+    <item>鼓包</item>
+    <item>钹</item>
+    <item>小鼓</item>
     </string-array>
 </resources>

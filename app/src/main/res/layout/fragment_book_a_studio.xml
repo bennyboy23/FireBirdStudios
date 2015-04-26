@@ -7,51 +7,55 @@
 
     <EditText
         android:id="@+id/name"
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/your_name" />
+        android:hint="@string/your_name"
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/email"
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:hint="@string/your_email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:padding="10dp" />
 
     <EditText
-        android:padding="10dp"
         android:id="@+id/telephone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/email"
         android:hint="@string/telephone"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:padding="10dp" />
 
     <EditText
-        android:padding="10dp"
         android:id="@+id/band_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/telephone"
-        android:hint="@string/band_name" />
+        android:hint="@string/band_name"
+        android:padding="10dp" />
+
     <Button
-        android:layout_marginTop="10dp"
         android:id="@+id/equipment_choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/equipment_for_hire"
-        android:layout_below="@+id/time"/>
+        android:layout_below="@+id/time"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/equipment_for_hire" />
+
     <Button
         android:id="@+id/Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="84dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:text="@string/Confirm_Button"
 
         />
@@ -81,6 +85,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/band_name"
         android:text="@string/pick_a_time" />
+    <Button
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:text="@string/end_time"/>
 
 
 </RelativeLayout>

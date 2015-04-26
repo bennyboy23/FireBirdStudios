@@ -12,18 +12,18 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    private FragmentManager fragmentManager;
-    private Toolbar toolbar;
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, EquipmentDialogFragment.equipmentDialogFragmentListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private String[] equipmentArray;
+    private String equipmentSelected;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -32,8 +32,9 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        equipmentArray = getResources().getStringArray(R.array.equipment_hire);
         setContentView(R.layout.activity_main_app_bar);
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -51,7 +52,7 @@ public class MainActivity extends ActionBarActivity
         switch (position) {
             case 0:
                 FragmentHome fragmenthome = new FragmentHome();
-                fragmentManager = getSupportFragmentManager();
+                FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragmenthome)
                         .commit();
@@ -132,6 +133,24 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    @Override
+    public void onConfirm(ArrayList<Integer> arrayList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (arrayList.size() != 0) {
 
+            for (int i = 0; i < arrayList.size(); i++) {
+                String equipment = equipmentArray[arrayList.get(i)];
+                stringBuilder.append(equipment).append("\n");
 
+            }
+            equipmentSelected = stringBuilder.toString();
+            AuthPreferences authPreferences = new AuthPreferences(getApplicationContext());
+            authPreferences.setEquipment(equipmentSelected);
+        }
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
 }
