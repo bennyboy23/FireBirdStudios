@@ -1,9 +1,7 @@
 package uk.co.firebirdstudios.firebirdstudios;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,18 +14,31 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
 
-import java.lang.ref.WeakReference;
+import com.squareup.picasso.Picasso;
 
 import tabs.SlidingTabLayout;
 
-/**
- * Created by Benjy on 23/12/14.
- */
-public class ActivityAboutUs extends ActionBarActivity {
 
+public class ActivityAboutUs extends ActionBarActivity {
+    public static TypedArray array;
     Toolbar toolbar;
+    public static Integer[] imageValues = {
+            R.drawable.coffeeplease,
+            R.drawable.drumsplussun,
+            R.drawable.soundproofing,
+            R.drawable.cafecoffee,
+            R.drawable.drums_birdseye,
+            R.drawable.moredrumming,
+            R.drawable.noiseboxes,
+            R.drawable.studioimage,
+            R.drawable.spares
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +47,7 @@ public class ActivityAboutUs extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        array = obtainStyledAttributes(R.styleable.MyGallery);
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -95,84 +106,88 @@ public class ActivityAboutUs extends ActionBarActivity {
             return aboutUsFragments;
         }
 
-        class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
-            private final WeakReference<ImageView> imageViewReference;
-            private int data = 0;
-
-            public BitmapWorkerTask(ImageView imageview) {
-                imageViewReference = new WeakReference<>(imageview);
-            }
-
-            @Override
-            protected Bitmap doInBackground(Integer... params) {
-                data = params[0];
-                return decodeBitmapFromResource(getResources(), data, 100, 100);
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap bitmap) {
-                if (imageViewReference != null && bitmap != null) {
-                    final ImageView imageView = imageViewReference.get();
-                    if (imageView != null) {
-                        imageView.setImageBitmap(bitmap);
-                    }
-                }
-            }
-        }
-
-        public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-            final int height = options.outHeight;
-            final int width = options.outWidth;
-            int inSampleSize = 1;
-            if (height > reqHeight || width > reqWidth) {
-                final int halfHeight = height / 2;
-                final int halfWidth = width / 2;
-
-                while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
-                    inSampleSize *= 2;
-                }
-            }
-            return inSampleSize;
-        }
-
-        public static Bitmap decodeBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight) {
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeResource(res, resId, options);
-
-            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-            options.inJustDecodeBounds = false;
-            return BitmapFactory.decodeResource(res, resId, options);
-        }
-
-        public void loadBitmap(int resId, ImageView imageView) {
-            BitmapWorkerTask task = new BitmapWorkerTask(imageView);
-            task.execute(resId);
-        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-            View layout;
+            final View layout;
             Bundle bundle = getArguments();
+            switch (bundle.getInt("position")) {
+                case 0:
+                    layout = inflater.inflate(R.layout.fragment_owners, container, false);
+                    naomiImageView = (ImageView) layout.findViewById(R.id.Naomi);
+                    Picasso.with(getActivity().getApplicationContext())
+                            .load(R.drawable.naomi)
+                            .resize(300, 400)
+                            .into(naomiImageView);
 
-            if (bundle.getInt("position") == 0) {
-                layout = inflater.inflate(R.layout.fragment_owners, container, false);
-                naomiImageView = (ImageView) layout.findViewById(R.id.Naomi);
-                loadBitmap(R.drawable.naomi, naomiImageView);
-                charlieImageView = (ImageView) layout.findViewById(R.id.Charlie);
-                loadBitmap(R.drawable.charlie, charlieImageView);
-                return layout;
-            } else if (bundle.getInt("position") == 1) {
-                layout = inflater.inflate(R.layout.fragment_studio, container, false);
-                return layout;
-            } else {
-                layout = inflater.inflate(R.layout.fragment_gallery, container, false);
-                return layout;
+                    charlieImageView = (ImageView) layout.findViewById(R.id.Charlie);
+                    Picasso.with(getActivity().getApplicationContext())
+                            .load(R.drawable.charlie)
+                            .resize(300, 400)
+
+                            .into(charlieImageView);
+                    return layout;
+
+                case 1:
+                    layout = inflater.inflate(R.layout.fragment_studio, container, false);
+                    return layout;
+
+                case 2:
+                    layout = inflater.inflate(R.layout.fragment_gallery, container, false);
+                    Gallery gallery = (Gallery) layout.findViewById(R.id.gallery);
+                    gallery.setAdapter(new ImageAdapter(getActivity().getApplicationContext()));
+                    gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            ImageView imageView = (ImageView) layout.findViewById(R.id.biggerPicture);
+                            Picasso.with(getActivity().getApplicationContext()).load(imageValues[position]).into(imageView);
+                        }
+                    });
+                    return layout;
             }
-
+            return null;
 
         }
 
+        public static class ImageAdapter extends BaseAdapter {
+            private Context context;
+            private int itemBackground;
+
+            public ImageAdapter(Context c) {
+                context = c;
+                itemBackground = array.getResourceId(R.styleable.MyGallery_android_galleryItemBackground, 0);
+
+            }
+
+            @Override
+            public int getCount() {
+                return imageValues.length;
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return position;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                ImageView imageview = new ImageView(context);
+                Picasso.with(context).load(imageValues[position]).into(imageview);
+                imageview.setLayoutParams(new Gallery.LayoutParams(200, 200));
+                imageview.setPadding(5, 5, 5, 5);
+                imageview.setBackgroundResource(itemBackground);
+                return imageview;
+
+            }
+        }
+
     }
+
+
 }

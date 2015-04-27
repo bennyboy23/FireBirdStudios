@@ -1,5 +1,7 @@
 package uk.co.firebirdstudios.firebirdstudios;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +26,7 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String[] equipmentArray;
     private String equipmentSelected;
+    private AuthPreferences authPreferences;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -32,6 +35,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        authPreferences = new AuthPreferences(this);
         equipmentArray = getResources().getStringArray(R.array.equipment_hire);
         setContentView(R.layout.activity_main_app_bar);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -58,12 +62,31 @@ public class MainActivity extends ActionBarActivity
                         .commit();
                 break;
             case 1:
-                FragmentBookAStudio fragmentbookastudio = new FragmentBookAStudio();
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, fragmentbookastudio)
-                        .commit();
-                TestingToast();
+                if(authPreferences.isLoggedIn()) {
+                    FragmentBookAStudio fragmentbookastudio = new FragmentBookAStudio();
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragmentbookastudio)
+                            .commit();
+                }else{
+                    AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                    alertDialog.setTitle("Not Logged In");
+                    alertDialog.setMessage("Please Log in to send a booking");
+                    alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"Log In",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getApplicationContext(),ActivityLogin.class);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"cancel",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
+                }
                 break;
             case 2:
                 FragmentPricing fragmentpricing = new FragmentPricing();

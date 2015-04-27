@@ -1,29 +1,44 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="uk.co.firebirdstudios.firebirdstudios.ActivityLogin">
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_below="@+id/app_bar"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/logo_description" />
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
-        />
-    <Button
-        android:id="@+id/skip_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_in_button"
-        android:text="@string/skip_login"/>
+    tools:context="uk.co.firebirdstudios.firebirdstudios.ActivityLogin"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/logo"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/logo_description" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+    </TableRow>
+
+    <TableRow android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/skip_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/skip_login" />
+    </TableRow>
+</LinearLayout>

@@ -41,12 +41,10 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
             doCoolAuthenticatedStuff();
         } else {
             setContentView(R.layout.activity_activity_login);
-            toolbar = (Toolbar) findViewById(R.id.app_bar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle(R.string.app_name);
+            loadLogo();
             findViewById(R.id.sign_in_button).setOnClickListener(this);
             findViewById(R.id.skip_login).setOnClickListener(this);
-            loadLogo();
+
         }
 
     }
@@ -54,12 +52,13 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
     public void loadLogo() {
         ImageView logo = (ImageView) findViewById(R.id.logo);
         Picasso.with(this)
-                .load(R.drawable.firebird_logo_large)
+                .load(R.drawable.firebird_logo_medium)
+                .resize(this.getResources().getDisplayMetrics().widthPixels,700)
                 .into(logo);
     }
 
     private void doCoolAuthenticatedStuff() {
-
+        authPreferences.loggedIn();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
@@ -126,6 +125,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.skip_login) {
+            authPreferences.notLoggedIn();
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();

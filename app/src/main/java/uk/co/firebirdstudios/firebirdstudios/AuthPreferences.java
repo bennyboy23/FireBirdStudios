@@ -27,7 +27,17 @@ public class AuthPreferences {
         editor.putString(KEY_TOKEN, password);
         editor.commit();
     }
-
+    public void notLoggedIn(){
+        Editor editor = preferences.edit();
+        editor.putBoolean("isLoggedIn",false);
+        editor.commit();
+    }
+    public void loggedIn(){
+        Editor editor = preferences.edit();
+        editor.putBoolean("isLoggedIn",true);
+        editor.commit();
+    }
+    public boolean isLoggedIn(){return preferences.getBoolean("isLoggedIn",true);}
     public String getUser() {
         return preferences.getString(KEY_USER, null);
     }
