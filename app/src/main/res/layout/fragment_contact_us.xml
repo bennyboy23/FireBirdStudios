@@ -1,31 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="?android:attr/buttonBarButtonStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top"
     android:orientation="vertical"
     tools:context="fragmentContactUs">
 
-    <TextView
-        android:id="@+id/phoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TableRow
 
-        android:padding="10dp"
-        android:text="@string/phoneNumber" />
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tableborder">
+
+        <Button
+
+            android:id="@+id/phoneNumber"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:padding="10dp"
+            android:text="@string/phoneNumber" />
+
+        <Button
+            android:id="@+id/maps"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tableborder"
+            android:padding="10dp"
+            android:text="@string/maps_button" />
+    </TableRow>
+
+    <TableRow
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/tableborder">
+
+        <Button
+
+            android:id="@+id/facebook_link"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/facebook_link" />
+
+        <Button
+            android:id="@+id/twitter_link"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tableborder"
+            android:padding="10dp"
+            android:text="@string/twitter_link" />
+    </TableRow>
+    <TableRow
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Email Us"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:background="#fff"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:inputType="textMultiLine"
+            android:id="@+id/editText"
+            />
+    </TableRow>
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/maps_button"
-        android:id="@+id/maps"/>
+        android:text="@string/Confirm_Button"
+        android:id="@+id/button" />
+
     <Button
-        android:id="@+id/facebook_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/facebook_link"/>
-    <Button
-        android:id="@+id/twitter_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/twitter_link"/>
+        android:text="@string/Cancel_Button"
+        android:id="@+id/button2"
+        android:layout_marginLeft="100dp" />
+    </TableRow>
 </LinearLayout>

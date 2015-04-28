@@ -17,10 +17,15 @@ import java.lang.ref.WeakReference;
 
 
 public class ImageDialogFragment extends DialogFragment {
-
+    /*
+    This is where the Images are loaded in the Dialog box when the user touches a equipment item
+    in the equipment hire tab
+     */
     public ImageDialogFragment newInstance(int resID) {
         ImageDialogFragment imageDialogFragment = new ImageDialogFragment();
+        /*
 
+         */
         Bundle args = new Bundle();
         args.putInt("resID", resID);
         imageDialogFragment.setArguments(args);
@@ -61,7 +66,11 @@ public class ImageDialogFragment extends DialogFragment {
 
         return dialog;
     }
-
+    /*
+    this code was created by following the Android tutorial in how to load bitmaps
+    Tutorial is found at
+    http://developer.android.com/training/displaying-bitmaps/process-bitmap.html
+     */
     class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
         private final WeakReference<ImageView> imageViewReference;
         private int data = 0;

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.SignInButton;
 import com.squareup.picasso.Picasso;
 
 public class ActivityLogin extends ActionBarActivity implements View.OnClickListener {
@@ -35,35 +36,48 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
         accountManager = AccountManager.get(this);
         connectionChecker = new ConnectionChecker(this);
         authPreferences = new AuthPreferences(this);
-        //If logged in
+        //If logged in the app will transport straight to the main activity
         if (authPreferences.getUser() != null
                 && authPreferences.getToken() != null) {
             doCoolAuthenticatedStuff();
         } else {
             setContentView(R.layout.activity_activity_login);
+            SignInButton logIn = (SignInButton)findViewById(R.id.sign_in_button);
+
             loadLogo();
-            findViewById(R.id.sign_in_button).setOnClickListener(this);
+            logIn.setOnClickListener(this);
             findViewById(R.id.skip_login).setOnClickListener(this);
 
         }
 
     }
-
+    //This is how the Logo is loaded into the imageview on the login page
     public void loadLogo() {
         ImageView logo = (ImageView) findViewById(R.id.logo);
+        /* Picasoo is an open source software found at
+           http://square.github.io/picasso/
+            this is use as the Image loader for
+         */
         Picasso.with(this)
                 .load(R.drawable.firebird_logo_medium)
                 .resize(this.getResources().getDisplayMetrics().widthPixels,700)
                 .into(logo);
     }
-
+    /*the following code has been taken from
+    http://blog.tomtasche.at/2013/05/google-oauth-on-android-using.html an
+    and modified for this app
+     */
     private void doCoolAuthenticatedStuff() {
         authPreferences.loggedIn();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
-
+    /*the following code has been taken from
+    http://blog.tomtasche.at/2013/05/google-oauth-on-android-using.html an
+    and modified for this app
+    this is used to access google features from the users selected account
+     */
     private void chooseAccount() {
 
         Intent intent = AccountManager.newChooseAccountIntent(null, null,
@@ -87,10 +101,10 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
                 new OnTokenAcquired(), null);
     }
 
-    /**
-     * call this method if your token expired, or you want to request a new
-     * token for whatever reason. call requestToken() again afterwards in order
-     * to get a new token.
+    /*the following code has been taken from
+    http://blog.tomtasche.at/2013/05/google-oauth-on-android-using.html an
+    and modified for this app
+    this is used to invalidate the Token aquired for the account
      */
     protected void invalidateToken() {
 
@@ -123,6 +137,10 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
     }
 
     @Override
+    /*
+    this is where the app decides which function to deploy
+    depending on which button is pressed
+     */
     public void onClick(View v) {
         if (v.getId() == R.id.skip_login) {
             authPreferences.notLoggedIn();
@@ -130,6 +148,7 @@ public class ActivityLogin extends ActionBarActivity implements View.OnClickList
             startActivity(i);
             finish();
         } else {
+            //here we make a call to the connection checker to ensure the user is connected before allowing the user to log in
             connection = connectionChecker.isConnected();
             if (connection) {
 

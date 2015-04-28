@@ -32,6 +32,10 @@ public class FragmentPricing extends Fragment {
 
     }
 
+    /*
+    this code was made by following a tutorial found at
+    https://www.youtube.com/watch?v=Fl0xMuo10yA
+     */
     class MyPagerAdapter extends FragmentPagerAdapter {
         String[] tabs;
 
@@ -119,6 +123,5 @@ public class FragmentPricing extends Fragment {
             }
         }
     }
-
 
 }

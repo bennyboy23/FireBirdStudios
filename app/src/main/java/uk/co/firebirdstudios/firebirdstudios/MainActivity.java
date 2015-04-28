@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -53,6 +52,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+    //this switch provides the instructions for the app to change to different pages on the app
         switch (position) {
             case 0:
                 FragmentHome fragmenthome = new FragmentHome();
@@ -157,6 +157,7 @@ public class MainActivity extends ActionBarActivity
 
 
     @Override
+    //this is where the app stores which equipment is selected from the equipment dialog fragment
     public void onConfirm(ArrayList<Integer> arrayList) {
         StringBuilder stringBuilder = new StringBuilder();
         if (arrayList.size() != 0) {

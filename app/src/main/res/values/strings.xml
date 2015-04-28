@@ -13,8 +13,8 @@
     <string name="Confirm_Button">Confirm</string>
     <string name="Cancel_Button">Cancel</string>
     <string name="pick_a_date">Pick a Date</string>
-    <string name="pick_a_time">Pick a time</string>
-    <string name="phoneNumber">tel:01179721830</string>
+    <string name="pick_a_time">Pick a start time</string>
+    <string name="phoneNumber">Press here to call us</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pricing">Pricing</string>
     <string-array name="AboutUsTabs">
@@ -31,7 +31,7 @@
     <string name="Charlie">Hello my name is Charlie, </string>
     <string name="Naomi">hello my name is Naomi</string>
     <string name="Disconnect_from_app">Disconnect from app</string>
-    <string name="maps_button">Find us on google maps</string>
+    <string name="maps_button">Find us on a map</string>
     <string name="room_hire_rate">Room Hire Rates</string>
     <string name="weekday">Weekday</string>
     <string name="weekend">Weekend</string>
@@ -85,4 +85,9 @@
     <string name="equipment">Equipment</string>
     <string name="price">Price</string>
     <string name="end_time">Pick an end time</string>
+    <string name="saturday_time">10am - 6pm</string>
+    <string name="weekday_time">10am - 11pm</string>
+    <string name="sunday_time">10am-10pm</string>
+    <string name="address">Address</string>
+    <string name="studio_address">Unit 4 \n 21– 23 Emery Road \n Bristol \n BS4 5PF \n United Kingdom</string>
 </resources>

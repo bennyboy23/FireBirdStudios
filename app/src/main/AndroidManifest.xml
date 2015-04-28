@@ -28,7 +28,7 @@
         <activity
 
             android:name=".MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:label="@string/app_name" >
 
         </activity>
@@ -43,7 +43,7 @@
                 android:value="uk.co.firebirdstudios.firebirdstudios.MainActivity"/>
         </activity>
         <activity android:name=".ActivitySettings"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+
             android:label="@string/action_settings"
             android:parentActivityName=".MainActivity"
             >

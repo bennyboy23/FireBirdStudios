@@ -11,22 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-/**
- * Created by Benjy on 23/12/14.
- */
+
 public class FragmentContactUs extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_contact_us, container, false);
-        TextView textView = (TextView) v.findViewById(R.id.phoneNumber);
-        textView.setOnClickListener(this);
+        Button callUs = (Button) v.findViewById(R.id.phoneNumber);
+        callUs.setOnClickListener(this);
         Button maps = (Button) v.findViewById(R.id.maps);
         Button facebookLink = (Button) v.findViewById(R.id.facebook_link);
         Button twitterLink = (Button)v.findViewById(R.id.twitter_link);
@@ -65,7 +62,7 @@ public class FragmentContactUs extends Fragment implements View.OnClickListener 
     }
 
     public void callStudio() {
-        Uri phoneNumber = Uri.parse(getResources().getString(R.string.phoneNumber));
+        Uri phoneNumber = Uri.parse("tel:01179721830");
         PackageManager packageManager = getActivity().getPackageManager();
 
         Intent callIntent = new Intent(Intent.ACTION_DIAL, phoneNumber);

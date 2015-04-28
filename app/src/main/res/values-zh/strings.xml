@@ -48,11 +48,17 @@
         <item>画廊</item>
     </string-array>
     <string-array name="equipment_hire">
-    <item>低音功放</item>
-    <item>标准的吉他音箱</item>
-    <item>溢价吉他音箱</item>
-    <item>鼓包</item>
-    <item>钹</item>
-    <item>小鼓</item>
+        <item>低音功放</item>
+        <item>标准的吉他音箱</item>
+        <item>溢价吉他音箱</item>
+        <item>鼓包</item>
+        <item>钹</item>
+        <item>小鼓</item>
     </string-array>
+    <string-array name="pricingTabs">
+        <item>租用房间</item>
+        <item>设备租赁</item>
+    </string-array>
+    <string name="not_connected">检查网络连接</string>
+
 </resources>

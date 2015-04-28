@@ -66,7 +66,10 @@ public class ActivityAboutUs extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    /*
+    this code was made by following a tutorial found at
+    https://www.youtube.com/watch?v=Fl0xMuo10yA
+     */
     class MyPagerAdapter extends FragmentPagerAdapter {
         String[] tabs;
 
@@ -136,12 +139,20 @@ public class ActivityAboutUs extends ActionBarActivity {
                 case 2:
                     layout = inflater.inflate(R.layout.fragment_gallery, container, false);
                     Gallery gallery = (Gallery) layout.findViewById(R.id.gallery);
+                    /*
+    this code has been modified from
+    http://www.androidinterview.com/android-gallery-view-example-displaying-a-list-of-images/
+    this is how the Image is shown in its larger form by taking the image
+     */
                     gallery.setAdapter(new ImageAdapter(getActivity().getApplicationContext()));
                     gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             ImageView imageView = (ImageView) layout.findViewById(R.id.biggerPicture);
-                            Picasso.with(getActivity().getApplicationContext()).load(imageValues[position]).into(imageView);
+                            Picasso.with(getActivity().getApplicationContext())
+                                    .load(imageValues[position])
+                                    .resize(400,400)
+                                    .into(imageView);
                         }
                     });
                     return layout;
@@ -149,7 +160,11 @@ public class ActivityAboutUs extends ActionBarActivity {
             return null;
 
         }
-
+        /*
+    this code has been modified from
+    http://www.androidinterview.com/android-gallery-view-example-displaying-a-list-of-images/
+    this is how the gallery images are populated. the images are gathered from an array and injected into the imageviews
+     */
         public static class ImageAdapter extends BaseAdapter {
             private Context context;
             private int itemBackground;

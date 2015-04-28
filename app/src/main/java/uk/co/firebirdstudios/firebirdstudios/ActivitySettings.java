@@ -30,7 +30,7 @@ import java.io.UnsupportedEncodingException;
 public class ActivitySettings extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private AuthPreferences authPreferences;
-
+    //this is the settings activity where the user is able to sign out, change language or disconnect from the app entirely
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +56,7 @@ public class ActivitySettings extends ActionBarActivity implements View.OnClickL
         Intent i = new Intent(this, ActivityLogin.class);
         switch (v.getId()) {
             case R.id.sign_out_button:
+                //the user signs out of the app and is returned to the login page
                 authPreferences.clearUser();
 
                 startActivity(i);

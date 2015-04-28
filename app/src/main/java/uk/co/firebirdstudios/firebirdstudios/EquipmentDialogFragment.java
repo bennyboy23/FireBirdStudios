@@ -15,6 +15,7 @@ public class EquipmentDialogFragment extends DialogFragment {
     private ArrayList<Integer> selectedItemsIndex = new ArrayList<>();
 
     public interface equipmentDialogFragmentListener{
+        //this interface is how the new dialog communicates with the host activity
         public void onConfirm(ArrayList<Integer> arrayList);
 
         public void onCancel();

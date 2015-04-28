@@ -11,7 +11,11 @@ public class AuthPreferences {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_LOCALE = "locale";
     private SharedPreferences preferences;
-
+    /*the following code has been taken from
+    http://blog.tomtasche.at/2013/05/google-oauth-on-android-using.html an
+    and has been modified for this app
+    this is java class handles all requests to and from the sharedpreferences
+     */
     public AuthPreferences(Context context) {
         preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE);
     }

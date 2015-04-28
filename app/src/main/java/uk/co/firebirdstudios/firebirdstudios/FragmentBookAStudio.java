@@ -142,6 +142,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
     }
 
 
+
     private class SendMail extends AsyncTask<Void, Void, Void> {
         //Here we gather the information to be sent to Firebird Studios
         EditText emailEdit = (EditText) getActivity().findViewById(R.id.email);
@@ -253,7 +254,11 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         return result;
 
     }
-
+/*
+the createEmail method and CreateMessageWithEmail method are both created by following the
+tutorial on the Gmail API site found at
+https://developers.google.com/gmail/api/guides/sending
+ */
     public static Message createEmail(String to, String from, String subject, String bodyText) throws MessagingException, IOException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -278,7 +283,11 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         message.setRaw(encodedEmail);
         return message;
     }
-
+    /*
+        the date and time picker Dialogs are inbuilt into the android system
+        I created them by following the Android tutorial found at
+        http://developer.android.com/guide/topics/ui/controls/pickers.html
+         */
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 

@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="10am - 11pm" />
+            android:text="@string/weekday_time" />
     </TableRow>
 
     <TableRow
@@ -64,7 +64,7 @@
 
         <TextView
             android:layout_weight="1"
-            android:text="10am - 6pm" />
+            android:text="@string/saturday_time" />
 
     </TableRow>
 
@@ -79,6 +79,25 @@
 
         <TextView
             android:layout_weight="1"
-            android:text="10am-10pm" />
+            android:text="@string/sunday_time" />
+    </TableRow>
+
+    <TableRow
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp">
+
+        <TextView
+
+            android:text="@string/address"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:text="@string/studio_address" />
+
     </TableRow>
 </LinearLayout>
