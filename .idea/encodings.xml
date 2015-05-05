@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/ActivityAboutUs.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/ActivityLogin.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/ActivitySettings.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/AuthPreferences.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/ConnectionChecker.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/EquipmentDialogFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/FragmentBookAStudio.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/FragmentContactUs.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/FragmentHome.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/FragmentPricing.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/ImageDialogFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/MainActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/uk/co/firebirdstudios/firebirdstudios/NavigationDrawerFragment.java" charset="UTF-8" />
+  </component>
 </project>
-

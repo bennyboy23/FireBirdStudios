@@ -1,10 +1,12 @@
 package uk.co.firebirdstudios.firebirdstudios;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,8 +50,8 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class FragmentBookAStudio extends Fragment implements View.OnClickListener{
-
+public class FragmentBookAStudio extends Fragment implements View.OnClickListener {
+    String message;
 
     AuthPreferences authPreferences = null;
     ConnectionChecker connectionChecker;
@@ -80,7 +82,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         confirm.setOnClickListener(this);
         Button equipment = (Button) v.findViewById(R.id.equipment_choice);
         equipment.setOnClickListener(this);
-        Button endTime = (Button)v.findViewById(R.id.endTime);
+        Button endTime = (Button) v.findViewById(R.id.endTime);
         endTime.setOnClickListener(this);
 
         return v;
@@ -99,7 +101,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
+        Context context = getActivity().getApplicationContext();
         switch (v.getId()) {
             case R.id.time:
                 timePickerInput = v.getId();
@@ -113,8 +115,26 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
                 showDatePickerDialog();
                 break;
             case R.id.Confirm:
-                Context context = getActivity().getApplicationContext();
-                SendMail mSendMail = new SendMail();
+
+                EditText nameEdit = (EditText) getActivity().findViewById(R.id.name);
+                EditText bandNameEdit = (EditText) getActivity().findViewById(R.id.band_name);
+                EditText telephoneEdit = (EditText) getActivity().findViewById(R.id.telephone);
+                Button endTime = (Button) getActivity().findViewById(R.id.endTime);
+                Button startTime = (Button) getActivity().findViewById(R.id.time);
+                Button mDate = (Button)getActivity().findViewById(R.id.date);
+                String date = mDate.getText().toString();
+                String time = startTime.getText().toString() + " - " + endTime.getText().toString();
+                String name = nameEdit.getText().toString();
+                String bandName = bandNameEdit.getText().toString();
+
+                String phoneNumber = telephoneEdit.getText().toString();
+                String equipmentSelected = authPreferences.getEquipment();
+                message = name + "\n" + phoneNumber + "\n" + bandName +
+                        "\n" + "\n" + date + "\n" + time + "\n" + equipmentSelected;
+
+
+                final SendMail mSendMail;
+                mSendMail = new SendMail();
                 int inputCheck = mSendMail.inputCheck();
                 boolean connection = connectionChecker.isConnected();
                 if (connection) {
@@ -125,8 +145,29 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
                         Toast.makeText(context, R.string.enter_email, Toast.LENGTH_SHORT).show();
                     } else if (inputCheck == 3) {
                         Toast.makeText(context, R.string.enter_number, Toast.LENGTH_SHORT).show();
-                    } else if (inputCheck == 4) {
-                        mSendMail.execute();
+                    } else if (inputCheck == 4){
+                        Toast.makeText(context,getString(R.string.check_time),Toast.LENGTH_SHORT).show();
+                    }else if(inputCheck == 5){
+                        Toast.makeText(context,getString(R.string.check_date),Toast.LENGTH_SHORT).show();
+                    }
+                    else if (inputCheck == 6) {
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+                        alertBuilder.setTitle("Booking Confirmation");
+                        alertBuilder.setMessage(message);
+                        alertBuilder.setPositiveButton(getString(R.string.Confirm_Button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mSendMail.execute();
+                            }
+                        });
+                        alertBuilder.setNegativeButton(getString(R.string.Cancel_Button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertBuilder.show();
+
                     }
                 } else {
                     Toast.makeText(context, R.string.not_connected, Toast.LENGTH_SHORT).show();
@@ -142,27 +183,23 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
     }
 
 
-
     private class SendMail extends AsyncTask<Void, Void, Void> {
         //Here we gather the information to be sent to Firebird Studios
         EditText emailEdit = (EditText) getActivity().findViewById(R.id.email);
         EditText nameEdit = (EditText) getActivity().findViewById(R.id.name);
         EditText bandNameEdit = (EditText) getActivity().findViewById(R.id.band_name);
         EditText telephoneEdit = (EditText) getActivity().findViewById(R.id.telephone);
-        Button endTime = (Button)getActivity().findViewById(R.id.endTime);
-        Button startTime = (Button)getActivity().findViewById(R.id.time);
-        String time = startTime.getText().toString() + " - " + endTime.getText().toString();
+        Button endTime = (Button) getActivity().findViewById(R.id.endTime);
+        Button startTime = (Button) getActivity().findViewById(R.id.time);
+        Button mDate = (Button)getActivity().findViewById(R.id.date);
+        String date = mDate.getText().toString();
         String name = nameEdit.getText().toString();
-        String bandName = bandNameEdit.getText().toString();
         String from = emailEdit.getText().toString();
         String phoneNumber = telephoneEdit.getText().toString();
-        String equipmentSelected = authPreferences.getEquipment();
-        String message = name + "\n" + phoneNumber + "\n" + bandName +
-                "\n" + time +"\n" + equipmentSelected;
-
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
                 //Here we send the email via the background thread
                 Message email = createEmail("cricketgenius.evans@gmail.com", from, "Booking", message);
 
@@ -174,11 +211,7 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
 
-        }
 
         public int inputCheck() {
             if (name.equals("")) {
@@ -187,9 +220,13 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
                 return 2;
             } else if (!(phoneNumber.length() == 11)) {
                 return 3;
-            } else {
+            } else if(startTime.getText().toString().equals(getString(R.string.pick_a_time))||
+                    endTime.getText().toString().equals(getString(R.string.end_time))){
                 return 4;
-            }
+            }else if(date.isEmpty()){
+                return 5;
+            }else
+                return 6;
         }
 
     }
@@ -254,11 +291,12 @@ public class FragmentBookAStudio extends Fragment implements View.OnClickListene
         return result;
 
     }
-/*
-the createEmail method and CreateMessageWithEmail method are both created by following the
-tutorial on the Gmail API site found at
-https://developers.google.com/gmail/api/guides/sending
- */
+
+    /*
+    the createEmail method and CreateMessageWithEmail method are both created by following the
+    tutorial on the Gmail API site found at
+    https://developers.google.com/gmail/api/guides/sending
+     */
     public static Message createEmail(String to, String from, String subject, String bodyText) throws MessagingException, IOException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -283,6 +321,7 @@ https://developers.google.com/gmail/api/guides/sending
         message.setRaw(encodedEmail);
         return message;
     }
+
     /*
         the date and time picker Dialogs are inbuilt into the android system
         I created them by following the Android tutorial found at
@@ -304,25 +343,24 @@ https://developers.google.com/gmail/api/guides/sending
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            switch(timePickerInput) {
+            switch (timePickerInput) {
 
                 case R.id.time:
-                Button time = (Button) getActivity().findViewById(R.id.time);
-                String displayTime = String.format("%02d:%02d", hourOfDay, minute);
-                time.setText(displayTime);
-                break;
+                    Button time = (Button) getActivity().findViewById(R.id.time);
+                    String displayTime = String.format("%02d:%02d", hourOfDay, minute);
+                    time.setText(displayTime);
+                    break;
                 case R.id.endTime:
-                Button endTime = (Button)getActivity().findViewById(R.id.endTime);
-                displayTime = String.format("%02d:%02d", hourOfDay, minute);
-                endTime.setText(displayTime);
-                break;
+                    Button endTime = (Button) getActivity().findViewById(R.id.endTime);
+                    displayTime = String.format("%02d:%02d", hourOfDay, minute);
+                    endTime.setText(displayTime);
+                    break;
             }
         }
     }
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
-
 
 
         @NonNull
@@ -350,6 +388,5 @@ https://developers.google.com/gmail/api/guides/sending
 
         }
     }
-
 
 }

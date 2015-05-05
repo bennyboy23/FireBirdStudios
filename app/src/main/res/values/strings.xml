@@ -90,4 +90,8 @@
     <string name="sunday_time">10am-10pm</string>
     <string name="address">Address</string>
     <string name="studio_address">Unit 4 \n 21– 23 Emery Road \n Bristol \n BS4 5PF \n United Kingdom</string>
+    <string name="email_us">Email Us</string>
+    <string name="email_client">Choose email client</string>
+    <string name="check_time">please enter a time</string>
+    <string name="check_date">please enter a date</string>
 </resources>

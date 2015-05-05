@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="?android:attr/buttonBarButtonStyle"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical"
-    tools:context="fragmentContactUs">
+    tools:context="fragmentContactUs"
+    >
 
     <TableRow
 
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/tableborder">
+        android:background="@drawable/tableborder"
+        android:layout_margin="10dp">
 
         <Button
 
@@ -42,7 +44,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/tableborder">
+        android:background="@drawable/tableborder"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <Button
 
@@ -64,41 +68,69 @@
             android:padding="10dp"
             android:text="@string/twitter_link" />
     </TableRow>
+
     <TableRow
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_marginTop="20dp">
+
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="Email Us"/>
+            android:layout_height="wrap_content"
+            android:text="@string/email_us"
+            android:textStyle="bold" />
     </TableRow>
 
     <TableRow
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <EditText android:hint="@string/your_name"
+            android:id="@+id/contactName"/>
+
+    </TableRow>
+
+    <TableRow
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText android:hint="@string/your_email"
+            android:id="@+id/emailAddress"
+            android:inputType="textEmailAddress" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
         <EditText
-            android:background="#fff"
+            android:id="@+id/message"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:inputType="textMultiLine"
-            android:id="@+id/editText"
-            />
+            android:background="#fff"
+            android:inputType="textMultiLine" />
     </TableRow>
-    <TableRow android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Confirm_Button"
-        android:id="@+id/button" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Cancel_Button"
-        android:id="@+id/button2"
-        android:layout_marginLeft="100dp" />
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/send"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Confirm_Button" />
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
+            android:text="@string/Cancel_Button" />
     </TableRow>
 </LinearLayout>

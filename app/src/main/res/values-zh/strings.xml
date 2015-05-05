@@ -60,5 +60,9 @@
         <item>设备租赁</item>
     </string-array>
     <string name="not_connected">检查网络连接</string>
+    <string name="email_us">Email Us</string>
+    <string name="email_client">Choose email client</string>
+    <string name="check_time">please enter a time</string>
+    <string name="check_date">please enter a date</string>
 
 </resources>
